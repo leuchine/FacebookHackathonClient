@@ -14,12 +14,12 @@
 			<h3> Adam </h3>
 			<h4> thegreatvolunteer@gmail.com </h4>
 		</center>
-		<h4>Reward Prefererences </h4>
+		<h4 class="title">Reward Prefererences </h4>
 		<ion-checkbox ng-model="preferences.reward.books">Books</ion-checkbox>
 		<ion-checkbox ng-model="preferences.reward.vouchers">Vouchers</ion-checkbox>
 		<ion-checkbox ng-model="all.reward" ng-click="checkAll('reward')">All</ion-checkbox>
 
-		<h4>Volunteering Prefererences </h4>
+		<h4 class="title">Volunteering Prefererences </h4>
 		<ion-checkbox ng-model="preferences.volunteering.plant_trees">Plant Trees</ion-checkbox>
 		<ion-checkbox ng-model="preferences.volunteering.teaching">Teaching</ion-checkbox>
 		<ion-checkbox ng-model="preferences.volunteering.tech_support">Tech Support</ion-checkbox>
@@ -28,7 +28,7 @@
 
       </div>
 
-      <div class="padding">
+      <div class="padding profile-button">
         <button type="submit" class="button button-block button-positive">
           <span ng-show="!loading">Update</span>
           <i ng-show="loading" class="ion-loading-b"></i>
