@@ -82,14 +82,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
- .state('tab.add', {
+  .state('add', {
     url: '/add',
-    views: {
-      'add-treasure': {
-        templateUrl: 'templates/add-treasure.html',
-        controller: 'AddTreasureCtrl'
-      }
-    }
+    templateUrl: 'templates/add-treasure.html',
+    controller: 'AddTreasureCtrl'
   });
 
   // if none of the above states are matched, use this as the fallback

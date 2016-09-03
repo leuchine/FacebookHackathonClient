@@ -17,7 +17,7 @@ function startWork(id, btn) {
 
 angular.module('starter.controllers')
 
-.controller('MapCtrl', function($scope, $state) {
+.controller('MapCtrl', function($scope, $state, Tasks) {
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
@@ -62,40 +62,48 @@ angular.module('starter.controllers')
           infoWindow.open($scope.map, marker);
       });
 
-      // fetch places
-      var places = [{
-        'id': 1,
-        'title': 'Test Place',
-        'description': 'Lorem Ipsum',
-        'lat': 1.2912674,
-        'lng': 103.85644629999999,
-        'working': 0
-      }];
+      Tasks.get(function (places) {
+          // fetch places
+          /*
+          var places = [{
+            'id': 1,
+            'title': 'Test Place',
+            'description': 'Lorem Ipsum',
+            'lat': 1.2912674,
+            'lng': 103.85644629999999,
+            'working': 0
+          }];
+          */
 
-      places.forEach(function (place) {
-        var latLng = new google.maps.LatLng(place.lat, place.lng);
-        var icon = {
-          url: 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue.png',
-          scaledSize: new google.maps.Size(36, 36)
-        };
-        var marker = new google.maps.Marker({
-            map: $scope.map,
-            position: latLng,
-            icon: icon
-        });
+          console.log(places);
 
-        var title = place.working
-          ? '<img src="' + IMG_STOP + '">'
-          : '<img src="' + IMG_START + '">';
-        var infoWindow = new google.maps.InfoWindow({
-            content: '<b>' + place.title + '</b><br>'
-              + place.description + '<br>'
-              + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + title + '</button>'
-        });
+          places.forEach(function (place) {
+            console.log(place);
+            var latLng = new google.maps.LatLng(place.latitude, place.longitude);
 
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.open($scope.map, marker);
-        });
+            var icon = {
+              url: 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue.png',
+              scaledSize: new google.maps.Size(36, 36)
+            };
+            var marker = new google.maps.Marker({
+                map: $scope.map,
+                position: latLng,
+                icon: icon
+            });
+
+            var btn = place.working
+              ? '<img src="' + IMG_STOP + '">'
+              : '<img src="' + IMG_START + '">';
+            var infoWindow = new google.maps.InfoWindow({
+                content: '<b>' + place.name + '</b><br>'
+                  + place.description + '<br>'
+                  + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + btn + '</button>'
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.open($scope.map, marker);
+            });
+          });
       });
     });
 
