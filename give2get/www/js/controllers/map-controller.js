@@ -69,6 +69,81 @@ function hideHeatMap() {
   }
 }
 
+function createInfoWindow(place, infoWindow, $scope) {
+  var iwframe = document.createElement('div');
+  iwframe.setAttribute('class', 'iwframe');
+
+  var title = document.createElement('strong');
+  title.setAttribute('class', 'place-title');
+  title.innerHTML = place.name;
+  iwframe.appendChild(title);
+
+  var br = document.createElement('br');
+  iwframe.appendChild(br);
+
+  var desc = document.createElement('p');
+  desc.setAttribute('class', 'place-desc');
+  desc.innerHTML = place.description;
+  iwframe.appendChild(desc);
+
+  var date = document.createElement('em');
+  date.setAttribute('class', 'place-date');
+  date.innerHTML = formatDate(new Date(place.date));
+  iwframe.appendChild(date);
+
+  br = document.createElement('br')
+  iwframe.appendChild(br);
+
+  var info = document.createElement('em');
+  info.setAttribute('class', 'place-info');
+  info.innerHTML = place.duration + ' hours, ' + place.points + ' points';
+  iwframe.appendChild(info);
+
+  br = document.createElement('br')
+  iwframe.appendChild(br);
+
+  var address = document.createElement('span');
+  var addressLabel = document.createElement('strong');
+  addressLabel.innerHTML = 'Address: ';
+  address.appendChild(addressLabel);
+  var addressValue = document.createElement('span');
+  addressValue.innerHTML = place.address + ', ' + place.postcode;
+  address.appendChild(addressValue);
+  iwframe.appendChild(address);
+
+  br = document.createElement('br')
+  iwframe.appendChild(br);
+
+  var phone = document.createElement('span');
+  var phoneLabel = document.createElement('strong');
+  phoneLabel.innerHTML = 'Phone: ';
+  phone.appendChild(phoneLabel);
+  var phoneValue = document.createElement('span');
+  phoneValue.innerHTML = place.phone;
+  phone.appendChild(phoneValue);
+  iwframe.appendChild(phone);
+
+  br = document.createElement('br')
+  iwframe.appendChild(br);
+
+  var btn = document.createElement('button');
+  btn.setAttribute('class', 'btn-work');
+  btn.dataset.working = place.working;
+  btn.innerHTML = place.working
+              ? '<img src="' + IMG_STOP + '">'
+              : '<img src="' + IMG_START + '">';
+  iwframe.appendChild(btn);
+
+  btn.addEventListener('click', function () {
+    startWork(place.id, btn, $scope);
+    if (btn.dataset.working == 0) {
+      infoWindow.close();
+    }
+  });
+
+  return iwframe;
+}
+
 var heatmap = false;
 
 angular.module('starter.controllers')
@@ -151,26 +226,19 @@ angular.module('starter.controllers')
                 icon: icon
             });
 
-            var btn = place.working
-              ? '<img src="' + IMG_STOP + '">'
-              : '<img src="' + IMG_START + '">';
+            var infoWindow = new google.maps.InfoWindow();
+            var content = createInfoWindow(place, infoWindow, $scope);
+            infoWindow.setContent(content);
 
-            var date = new Date(place.date);
-            var date_str = formatDate(date);
-            var infoWindow = new google.maps.InfoWindow({
-                content: '<div class="iwframe"><strong class="place-title">' + place.name + '</strong><br>'
-                  + '<p class="place-desc">' + place.description + '</p>'
-                  + '<em class="place-date">' + date_str + '</em><br>'
-                  + '<em class="place-info">' + place.duration + ' hours, ' + place.points + ' points</em><br>'
-                  + '<strong>Address:</strong> ' + place.address + ', ' + place.postcode + '<br>'
-                  + '<strong>Phone:</strong> ' + place.phone + '<br>'
-                  + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + btn + '</button></div>'
-            });
-
-            infoWindow.setContent(infoWindow.getContent());
+            //infoWindow.setContent(infoWindow.getContent());
 
             google.maps.event.addListener(marker, 'click', function () {
                 infoWindow.open($scope.map, marker);
+
+                if ($scope.lastInfoWindow) {
+                  $scope.lastInfoWindow.close();
+                }
+                $scope.lastInfoWindow = infoWindow;
             });
           });
       });
