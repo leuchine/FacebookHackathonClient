@@ -26,6 +26,41 @@ function startWork(id, btn) {
   btn.innerHTML = '<img src="' + src + '">';
 }
 
+var rectangles = new Array();
+function showHeatMap(map) {
+  for (var i = 0; i < 8; i++)
+  {
+    for (var j = 0; j < 8; j++)
+    {
+      var newRect = new google.maps.Rectangle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 0,
+        fillColor: '#FF0000',
+        fillOpacity: 0.4 - (i*71%131 + j*157%203)*0.002,
+        map: map,
+        bounds: {
+          north: 1.3 - i*0.003,
+          south: 1.3 - (i+1)*0.003,
+          east: 103.860 - j*0.003,
+          west: 103.860 - (j+1)*0.003
+        }
+      });
+
+      rectangles.push(newRect);
+    }
+  }
+}
+
+function hideHeatMap() {
+  for (var i = 0; i < rectangles.length; i++)
+  {
+    rectangles[i].setMap(null);
+  }
+}
+
+var heatmap = false;
+
 angular.module('starter.controllers')
 
 .controller('MapCtrl', function($scope, $state, Tasks, Location) {
@@ -174,6 +209,17 @@ angular.module('starter.controllers')
     var heatmapBtn = document.createElement('div');
     heatmapBtn.setAttribute('class', 'btn-heatmap');
     controlContainer.appendChild(heatmapBtn);
+    google.maps.event.addDomListener(heatmapBtn, 'click', function () {
+      console.log('heatmap');
+      if (heatmap) {
+        heatmap = false;
+        hideHeatMap();
+      } else {
+        heatmap = true;
+        showHeatMap($scope.map);
+      }
+    });
+
     $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(heatmapBtn);
 
   }, function (err) {

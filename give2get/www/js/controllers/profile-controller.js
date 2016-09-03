@@ -7,8 +7,9 @@ angular.module('starter.controllers')
       'vouchers': false
     },
     'volunteering': {
-      'plant_trees': true,
-      'teaching': false,
+      'plant_trees': false,
+      'helper': true,
+      'teaching': true,
       'tech_support': true,
       'photography': true
     }
