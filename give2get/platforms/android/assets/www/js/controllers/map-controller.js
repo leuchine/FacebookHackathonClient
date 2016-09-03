@@ -17,7 +17,7 @@ function startWork(id, btn) {
 
 angular.module('starter.controllers')
 
-.controller('MapCtrl', function($scope, $location) {
+.controller('MapCtrl', function($scope, $state) {
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
@@ -121,7 +121,7 @@ angular.module('starter.controllers')
 
     google.maps.event.addDomListener(addBtn, 'click', function () {
       console.log('add');
-      $location.path('/add-treasure');
+      $state.go('add');
     });
 
     google.maps.event.addDomListener(locateBtn, 'click', function () {
