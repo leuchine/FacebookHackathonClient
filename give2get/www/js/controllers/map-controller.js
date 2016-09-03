@@ -1,13 +1,15 @@
 var IMG_START = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_play_arrow_black_36dp.png';
 var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/master/av/2x_web/ic_pause_black_36dp.png';
 
-function getURLParams() {
-  return window.location.search
-      .substring(1)
-      .split("&")
-      .map(v => v.split("="))
-      .reduce((map, [key, value]) => map.set(key, decodeURIComponent(value)), new Map());
-};
+function getParameterByName(name) {
+    var url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 function formatDate(date) {
   var hours = date.getHours();
@@ -206,8 +208,7 @@ angular.module('starter.controllers')
 
     $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlContainer);
 
-    var params = getURLParams();
-    var points = (params && params.has('points')) ? params.get('points') : 3000;
+    var points = getParameterByName('points') || 3000;
     var pointsEl = document.createElement('div');
     pointsEl.setAttribute('class', 'points');
     pointsEl.innerHTML = points;
