@@ -96,6 +96,28 @@ img.circle-image {
 	height: 24px;
 }
 
-.title {
+h4.title {
 	margin-top: 25px;
+}
+
+.place-title {
+	font-size: 15px;
+}
+
+.place-date {
+	font-weight: bold;
+}
+
+.place-desc {
+	margin-bottom: 0;
+}
+
+.place-info {
+	font-style: italic;
+	margin-bottom: 5px;
+	display: inline-block;
+}
+
+.iwframe {
+	font-weight: normal;
 }

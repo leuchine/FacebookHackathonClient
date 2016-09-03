@@ -1,5 +1,16 @@
 var IMG_START = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_play_arrow_black_36dp.png';
-var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_stop_black_36dp.png';
+var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/master/av/2x_web/ic_pause_black_36dp.png';
+
+function formatDate(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+}
 
 function startWork(id, btn) {
   var src;
@@ -33,7 +44,7 @@ angular.module('starter.controllers')
 
     var mapOptions = {
       center: latLng,
-      zoom: 15,
+      zoom: 18,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       streetViewControl: false,
       mapTypeControl: false,
@@ -65,12 +76,19 @@ angular.module('starter.controllers')
           infoWindow.open($scope.map, marker);
       });
 
+      var icons = {
+        'Photo': 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue.png',
+        'Helper': 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue_violet.png',
+        'Craft': 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue_teal.png',
+        'Tech': 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue_green.png'
+      };
+
       Tasks.get(function (places) {
           places.forEach(function (place) {
             var latLng = new google.maps.LatLng(place.latitude, place.longitude);
 
             var icon = {
-              url: 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue.png',
+              url: icons[place.type],
               scaledSize: new google.maps.Size(36, 36)
             };
             var marker = new google.maps.Marker({
@@ -82,11 +100,20 @@ angular.module('starter.controllers')
             var btn = place.working
               ? '<img src="' + IMG_STOP + '">'
               : '<img src="' + IMG_START + '">';
+
+            var date = new Date(place.date);
+            var date_str = formatDate(date);
             var infoWindow = new google.maps.InfoWindow({
-                content: '<b>' + place.name + '</b><br>'
-                  + place.description + '<br>'
-                  + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + btn + '</button>'
+                content: '<div class="iwframe"><strong class="place-title">' + place.name + '</strong><br>'
+                  + '<p class="place-desc">' + place.description + '</p>'
+                  + '<em class="place-date">' + date_str + '</em><br>'
+                  + '<em class="place-info">' + place.duration + ' hours, ' + place.points + ' points</em><br>'
+                  + '<strong>Address:</strong> ' + place.address + ', ' + place.postcode + '<br>'
+                  + '<strong>Phone:</strong> ' + place.phone + '<br>'
+                  + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + btn + '</button></div>'
             });
+
+            infoWindow.setContent(infoWindow.getContent());
 
             google.maps.event.addListener(marker, 'click', function () {
                 infoWindow.open($scope.map, marker);
