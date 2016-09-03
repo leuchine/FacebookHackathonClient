@@ -233,12 +233,12 @@ angular.module('starter.controllers')
             //infoWindow.setContent(infoWindow.getContent());
 
             google.maps.event.addListener(marker, 'click', function () {
-                infoWindow.open($scope.map, marker);
-
                 if ($scope.lastInfoWindow) {
                   $scope.lastInfoWindow.close();
                 }
                 $scope.lastInfoWindow = infoWindow;
+
+                infoWindow.open($scope.map, marker);
             });
           });
       });
