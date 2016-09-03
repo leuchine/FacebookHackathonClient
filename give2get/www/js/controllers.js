@@ -35,28 +35,20 @@ angular.module('starter.controllers', [])
       });
     });
 
+
+    var controlUI = document.createElement('div');
+    controlUI.setAttribute('class', 'btn-locate');
+    controlUI.innerHTML = '&#xf2e9;';
+
+    google.maps.event.addDomListener(controlUI, 'click', function () {
+        $scope.map.setCenter(latLng);
+    });
+
+    $scope.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlUI);
+
   }, function (err) {
     console.log('err', err);
   }, options);
-
-/*
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
-    console.log('position:' + position);
-
-    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-    var mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  }, function(error){
-    console.log("Could not get location");
-  });
-  */
 
 })
 
