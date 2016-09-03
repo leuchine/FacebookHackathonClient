@@ -53,4 +53,15 @@ img.circle-image {
 
 .btn-work {
 	margin-top: 10px;
+	border: 1px solid #999;
+	border-radius: 100px;
+	background: none;
+	height: auto;
+	padding: 0;
+	line-height: 0px;
+}
+
+.btn-work img {
+	width: 24px;
+	height: 24px;
 }

@@ -1,13 +1,18 @@
+var IMG_START = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_play_arrow_black_36dp.png';
+var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_stop_black_36dp.png';
+
 function startWork(id, btn) {
+  var src;
   if (btn.dataset.working == 1) {
     console.log('stopping work ' + id);
     btn.dataset.working = 0;
-    btn.innerHTML = 'Start Work';
+    src = IMG_START;
   } else {
     console.log('starting work ' + id);
     btn.dataset.working = 1;
-    btn.innerHTML = 'Stop Work';
+    src = IMG_STOP;
   }
+  btn.innerHTML = '<img src="' + src + '">';
 }
 
 angular.module('starter.controllers', [])
@@ -79,11 +84,13 @@ angular.module('starter.controllers', [])
             icon: icon
         });
 
-        var title = place.working ? 'Stop Work' : 'Start Work';
+        var title = place.working
+          ? '<img src="' + IMG_STOP + '">'
+          : '<img src="' + IMG_START + '">';
         var infoWindow = new google.maps.InfoWindow({
             content: '<b>' + place.title + '</b><br>'
               + place.description + '<br>'
-              + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + title+ '</button>'
+              + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + title + '</button>'
         });
 
         google.maps.event.addListener(marker, 'click', function () {
