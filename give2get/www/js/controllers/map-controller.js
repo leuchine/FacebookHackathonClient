@@ -32,6 +32,15 @@ angular.module('starter.controllers')
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
+  /*
+  var pos = {
+    coords: {
+      latitude: 1.2952625,
+      longitude: 103.85657169999999
+    }
+  };
+  */
+
   navigator.geolocation.getCurrentPosition(function (pos) {
 
     var lat = pos.coords.latitude;
@@ -153,6 +162,13 @@ angular.module('starter.controllers')
 
 
     $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlContainer);
+
+    var parts = window.location.toString().split('points=');
+    var points = (parts.length == 2) ? parts[1] : 3000;
+    var pointsEl = document.createElement('div');
+    pointsEl.setAttribute('class', 'points');
+    pointsEl.innerHTML = points;
+    $scope.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(pointsEl);
 
   }, function (err) {
     console.log('err', err);
