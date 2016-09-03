@@ -1,3 +1,15 @@
+function startWork(id, btn) {
+  if (btn.dataset.working == 1) {
+    console.log('stopping work ' + id);
+    btn.dataset.working = 0;
+    btn.innerHTML = 'Start Work';
+  } else {
+    console.log('starting work ' + id);
+    btn.dataset.working = 1;
+    btn.innerHTML = 'Stop Work';
+  }
+}
+
 angular.module('starter.controllers', [])
 
 .controller('PowerUpCtrl', function($scope) {
@@ -47,10 +59,12 @@ angular.module('starter.controllers', [])
 
       // fetch places
       var places = [{
+        'id': 1,
         'title': 'Test Place',
         'description': 'Lorem Ipsum',
         'lat': 1.2912674,
-        'lng': 103.85644629999999
+        'lng': 103.85644629999999,
+        'working': 1
       }];
 
       places.forEach(function (place) {
@@ -64,8 +78,12 @@ angular.module('starter.controllers', [])
             position: latLng,
             icon: icon
         });
+
+        var title = place.working ? 'Stop Work' : 'Start Work';
         var infoWindow = new google.maps.InfoWindow({
-            content: '<b>' + place.title + '</b><br>' + place.description
+            content: '<b>' + place.title + '</b><br>'
+              + place.description + '<br>'
+              + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + title+ '</button>'
         });
 
         google.maps.event.addListener(marker, 'click', function () {
