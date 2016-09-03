@@ -5,9 +5,9 @@
 	color: #333 !important;
 }
 
-.tab-item-powerup.activated .icon,
-.tab-item-powerup.tab-item-active .icon {
-	color: green !important;
+.tab-item-map.activated .icon,
+.tab-item-map.tab-item-active .icon {
+	color: #689F38 !important;
 }
 
 .tab-item-hunt.activated .icon,
@@ -20,6 +20,9 @@
 	color: #387ef5 !important;
 }
 
+img.circle-image {
+  border-radius: 100px;
+}
 
 /* Map */
 
@@ -32,9 +35,14 @@
     height: 100%;
 }
 
-.btn-locate {
+.btn-container {
+	right: 0 !important;
+	bottom: 20px !important;
+}
+
+.btn-control {
 	background: white;
-	border-radius: 3px;
+	border-radius: 50px;
 	box-shadow: 0 2px 6px rgba(0,0,0,.3);
 	cursor: pointer;
 	margin: 10px;
@@ -44,10 +52,43 @@
 	line-height: 48px;
 	font-size: 20px;
 	font-family: 'Ionicons';
-	right: 0 !important;
-	bottom: 20px !important;
+}
+
+.btn-control:active {
+	background: #eee;
+}
+
+.btn-add {
+	color: #689F38;
+}
+
+.btn-ar {
+	color: #ffd700;
+}
+
+.btn-locate {
+	color: #387ef5;
 }
 
 .btn-work {
 	margin-top: 10px;
+	border: 1px solid #999;
+	border-radius: 100px;
+	background: none;
+	height: auto;
+	padding: 0;
+	line-height: 0px;
+}
+
+.btn-work img {
+	width: 24px;
+	height: 24px;
+}
+
+.profile-button {
+	margin-bottom: 15px;
+}
+
+.title {
+	margin-top: 25px;
 }

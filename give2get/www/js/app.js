@@ -80,6 +80,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         controller: 'ProfileCtrl'
       }
     }
+  })
+
+ .state('add', {
+    url: '/add',
+    views: {
+      'add': {
+        templateUrl: 'templates/add-treasure.html',
+        controller: 'AddTreasureCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

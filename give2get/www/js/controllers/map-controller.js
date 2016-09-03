@@ -17,7 +17,7 @@ function startWork(id, btn) {
 
 angular.module('starter.controllers')
 
-.controller('MapCtrl', function($scope) {
+.controller('MapCtrl', function($scope, $location) {
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
@@ -119,10 +119,15 @@ angular.module('starter.controllers')
     locateBtn.innerHTML = '&#xf2e9;';
     controlContainer.appendChild(locateBtn);
 
+    google.maps.event.addDomListener(addBtn, 'click', function () {
+      console.log('add');
+      $location.path('/tab/add');
+    });
 
     google.maps.event.addDomListener(locateBtn, 'click', function () {
-        $scope.map.setCenter(latLng);
+      $scope.map.setCenter(latLng);
     });
+
 
     $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlContainer);
 

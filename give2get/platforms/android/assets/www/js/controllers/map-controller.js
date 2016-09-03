@@ -1,18 +1,23 @@
+var IMG_START = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_play_arrow_black_36dp.png';
+var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_stop_black_36dp.png';
+
 function startWork(id, btn) {
+  var src;
   if (btn.dataset.working == 1) {
     console.log('stopping work ' + id);
     btn.dataset.working = 0;
-    btn.innerHTML = 'Start Work';
+    src = IMG_START;
   } else {
     console.log('starting work ' + id);
     btn.dataset.working = 1;
-    btn.innerHTML = 'Stop Work';
+    src = IMG_STOP;
   }
+  btn.innerHTML = '<img src="' + src + '">';
 }
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers')
 
-.controller('PowerUpCtrl', function($scope) {
+.controller('MapCtrl', function($scope, $location) {
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
@@ -64,7 +69,7 @@ angular.module('starter.controllers', [])
         'description': 'Lorem Ipsum',
         'lat': 1.2912674,
         'lng': 103.85644629999999,
-        'working': 1
+        'working': 0
       }];
 
       places.forEach(function (place) {
@@ -79,11 +84,13 @@ angular.module('starter.controllers', [])
             icon: icon
         });
 
-        var title = place.working ? 'Stop Work' : 'Start Work';
+        var title = place.working
+          ? '<img src="' + IMG_STOP + '">'
+          : '<img src="' + IMG_START + '">';
         var infoWindow = new google.maps.InfoWindow({
             content: '<b>' + place.title + '</b><br>'
               + place.description + '<br>'
-              + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + title+ '</button>'
+              + '<button onClick="startWork(' + place.id + ', this)" class="btn-work" data-working="' + place.working + '">' + title + '</button>'
         });
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -93,43 +100,39 @@ angular.module('starter.controllers', [])
     });
 
 
-    var controlUI = document.createElement('div');
-    controlUI.setAttribute('class', 'btn-locate');
-    controlUI.innerHTML = '&#xf2e9;';
+    var controlContainer = document.createElement('div');
+    controlContainer.setAttribute('class', 'btn-container');
 
-    google.maps.event.addDomListener(controlUI, 'click', function () {
-        $scope.map.setCenter(latLng);
+
+    var addBtn = document.createElement('div');
+    addBtn.setAttribute('class', 'btn-control btn-add');
+    addBtn.innerHTML = '&#xf218;';
+    controlContainer.appendChild(addBtn);
+
+    var arBtn = document.createElement('div');
+    arBtn.setAttribute('class', 'btn-control btn-ar');
+    arBtn.innerHTML = '&#xf24e;';
+    controlContainer.appendChild(arBtn);
+
+    var locateBtn = document.createElement('div');
+    locateBtn.setAttribute('class', 'btn-control btn-locate');
+    locateBtn.innerHTML = '&#xf2e9;';
+    controlContainer.appendChild(locateBtn);
+
+    google.maps.event.addDomListener(addBtn, 'click', function () {
+      console.log('add');
+      $location.path('/add-treasure');
     });
 
-    $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlUI);
+    google.maps.event.addDomListener(locateBtn, 'click', function () {
+      $scope.map.setCenter(latLng);
+    });
+
+
+    $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlContainer);
 
   }, function (err) {
     console.log('err', err);
   }, options);
 
-})
-
-.controller('HuntCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('ProfileCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
 });
