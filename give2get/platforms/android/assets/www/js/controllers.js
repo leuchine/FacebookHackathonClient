@@ -14,16 +14,27 @@ angular.module('starter.controllers', [])
     var mapOptions = {
       center: latLng,
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      streetViewControl: false,
+      mapTypeControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_TOP
+      }
     };
 
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
     google.maps.event.addListenerOnce($scope.map, 'idle', function() {
+      var icon = {
+        url: 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_position.png',
+        scaledSize: new google.maps.Size(36, 36)
+      };
+
       var marker = new google.maps.Marker({
           map: $scope.map,
-          animation: google.maps.Animation.DROP,
-          position: latLng
+          position: latLng,
+          icon: icon
       });
 
       var infoWindow = new google.maps.InfoWindow({
@@ -33,30 +44,50 @@ angular.module('starter.controllers', [])
       google.maps.event.addListener(marker, 'click', function () {
           infoWindow.open($scope.map, marker);
       });
+
+      // fetch places
+      var places = [{
+        'title': 'Test Place',
+        'description': 'Lorem Ipsum',
+        'lat': 1.2912674,
+        'lng': 103.85644629999999
+      }];
+
+      places.forEach(function (place) {
+        var latLng = new google.maps.LatLng(place.lat, place.lng);
+        var icon = {
+          url: 'https://dl.dropboxusercontent.com/u/9957216/fbhack/ic_venue.png',
+          scaledSize: new google.maps.Size(36, 36)
+        };
+        var marker = new google.maps.Marker({
+            map: $scope.map,
+            position: latLng,
+            icon: icon
+        });
+        var infoWindow = new google.maps.InfoWindow({
+            content: '<b>' + place.title + '</b><br>' + place.description
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open($scope.map, marker);
+        });
+      });
     });
+
+
+    var controlUI = document.createElement('div');
+    controlUI.setAttribute('class', 'btn-locate');
+    controlUI.innerHTML = '&#xf2e9;';
+
+    google.maps.event.addDomListener(controlUI, 'click', function () {
+        $scope.map.setCenter(latLng);
+    });
+
+    $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlUI);
 
   }, function (err) {
     console.log('err', err);
   }, options);
-
-/*
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
-    console.log('position:' + position);
-
-    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-    var mapOptions = {
-      center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-  }, function(error){
-    console.log("Could not get location");
-  });
-  */
 
 })
 

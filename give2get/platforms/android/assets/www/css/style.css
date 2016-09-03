@@ -32,3 +32,18 @@
     height: 100%;
 }
 
+.btn-locate {
+	background: white;
+	border-radius: 3px;
+	box-shadow: 0 2px 6px rgba(0,0,0,.3);
+	cursor: pointer;
+	margin: 10px;
+	text-align: center;
+	width: 48px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 20px;
+	font-family: 'Ionicons';
+	right: 0 !important;
+	bottom: 20px !important;
+}
