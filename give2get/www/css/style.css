@@ -54,20 +54,31 @@ img.circle-image {
 	font-family: 'Ionicons';
 }
 
-.btn-control:active {
-	background: #eee;
+.btn-add {
+	background: #7CB342;
+	color: white;
 }
 
-.btn-add {
-	color: #689F38;
+.btn-add:active {
+	background: #689F38;
 }
 
 .btn-ar {
-	color: #ffd700;
+	background: #FFB300;
+	color: white;
+}
+
+.btn-ar:active {
+	background: #FFA000;
 }
 
 .btn-locate {
-	color: #387ef5;
+	background: #1E88E5;
+	color: white;
+}
+
+.btn-locate:active {
+	background: #1976D2;
 }
 
 .btn-work {
@@ -83,10 +94,6 @@ img.circle-image {
 .btn-work img {
 	width: 24px;
 	height: 24px;
-}
-
-.profile-button {
-	margin-bottom: 15px;
 }
 
 .title {
