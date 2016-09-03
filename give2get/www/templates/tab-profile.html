@@ -2,8 +2,8 @@
 
   <ion-view title="My Profile">
     <ion-content>
-      <div class="list list-inset">		
-	  
+      <div class="list list-inset">
+
 		<center>
 				  <div class="item-ddd">
 					<img class="circle-image" ng-src="../img/adam.jpg" width="100" height="100">
@@ -15,19 +15,19 @@
 			<h4> thegreatvolunteer@gmail.com </h4>
 		</center>
 		<h4>Reward Prefererences </h4>
-		<ion-checkbox ng-checked="all">Books</ion-checkbox>
-		<ion-checkbox ng-checked="all">Vouchers</ion-checkbox>
-		<ion-checkbox ng-model="all">All</ion-checkbox>
-		
+		<ion-checkbox ng-model="preferences.reward.books">Books</ion-checkbox>
+		<ion-checkbox ng-model="preferences.reward.vouchers">Vouchers</ion-checkbox>
+		<ion-checkbox ng-model="all.reward" ng-click="checkAll('reward')">All</ion-checkbox>
+
 		<h4>Volunteering Prefererences </h4>
-		<ion-checkbox ng-checked="volunteer">Plant Trees</ion-checkbox>
-		<ion-checkbox ng-checked="volunteer">Teaching</ion-checkbox>
-		<ion-checkbox ng-checked="volunteer">Tech Support</ion-checkbox>
-		<ion-checkbox ng-checked="volunteer" >Photography</ion-checkbox>
-		<ion-checkbox ng-model="volunteer">All</ion-checkbox>
-		
+		<ion-checkbox ng-model="preferences.volunteering.plant_trees">Plant Trees</ion-checkbox>
+		<ion-checkbox ng-model="preferences.volunteering.teaching">Teaching</ion-checkbox>
+		<ion-checkbox ng-model="preferences.volunteering.tech_support">Tech Support</ion-checkbox>
+		<ion-checkbox ng-model="preferences.volunteering.photography" >Photography</ion-checkbox>
+		<ion-checkbox ng-model="all.volunteering" ng-click="checkAll('volunteering')">All</ion-checkbox>
+
       </div>
-	  
+
       <div class="padding">
         <button type="submit" class="button button-block button-positive">
           <span ng-show="!loading">Update</span>
