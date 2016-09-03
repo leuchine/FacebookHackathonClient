@@ -1,5 +1,5 @@
 var IMG_START = 'https://raw.githubusercontent.com/google/material-design-icons/a6145e167b4a3a65640dd6279319cbc77a7e4e96/av/2x_web/ic_play_arrow_black_36dp.png';
-var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/master/av/2x_web/ic_pause_black_36dp.png';
+var IMG_STOP = 'https://raw.githubusercontent.com/google/material-design-icons/master/av/2x_web/ic_stop_black_36dp.png';
 
 function getParameterByName(name) {
     var url = window.location.href;
@@ -69,7 +69,7 @@ function hideHeatMap() {
   }
 }
 
-function createInfoWindow(place, infoWindow, $scope) {
+function createInfoWindow(place, infoWindow, $scope, Points) {
   var iwframe = document.createElement('div');
   iwframe.setAttribute('class', 'iwframe');
 
@@ -138,6 +138,10 @@ function createInfoWindow(place, infoWindow, $scope) {
     startWork(place.id, btn, $scope);
     if (btn.dataset.working == 0) {
       infoWindow.close();
+      var points = Points.get() - place.points;
+      Points.set(points);
+      var pointsEl = document.getElementById('points');
+      pointsEl.innerHTML = points;
     }
   });
 
@@ -148,18 +152,12 @@ var heatmap = false;
 
 angular.module('starter.controllers')
 
-.controller('MapCtrl', function($scope, $state, Tasks, Location) {
+.controller('MapCtrl', function($scope, $state, Tasks, Location, Points) {
+
+  var points = getParameterByName('points') || 3000;
+  Points.set(points);
 
   var options = {timeout: 10000, enableHighAccuracy: true};
-
-  /*
-  var pos = {
-    coords: {
-      latitude: 1.2952625,
-      longitude: 103.85657169999999
-    }
-  };
-  */
 
   navigator.geolocation.getCurrentPosition(function (pos) {
 
@@ -227,10 +225,8 @@ angular.module('starter.controllers')
             });
 
             var infoWindow = new google.maps.InfoWindow();
-            var content = createInfoWindow(place, infoWindow, $scope);
+            var content = createInfoWindow(place, infoWindow, $scope, Points);
             infoWindow.setContent(content);
-
-            //infoWindow.setContent(infoWindow.getContent());
 
             google.maps.event.addListener(marker, 'click', function () {
                 if ($scope.lastInfoWindow) {
@@ -276,8 +272,8 @@ angular.module('starter.controllers')
 
     $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlContainer);
 
-    var points = getParameterByName('points') || 3000;
     var pointsEl = document.createElement('div');
+    pointsEl.setAttribute('id', 'points');
     pointsEl.setAttribute('class', 'points');
     pointsEl.innerHTML = points;
     $scope.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(pointsEl);

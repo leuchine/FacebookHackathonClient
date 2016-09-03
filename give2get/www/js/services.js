@@ -40,4 +40,16 @@ angular.module('starter.services', [])
       return location;
     }
   }
+})
+
+.factory('Points', function () {
+  var points = 0;
+  return {
+    set: function (pts) {
+      points = pts;
+    },
+    get: function () {
+      return points;
+    }
+  }
 });
