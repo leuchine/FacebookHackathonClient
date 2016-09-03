@@ -1,6 +1,56 @@
 angular.module('starter.controllers', [])
 
-.controller('PowerUpCtrl', function($scope) {})
+.controller('PowerUpCtrl', function($scope) {
+
+  var options = {timeout: 10000, enableHighAccuracy: true};
+
+  navigator.geolocation.getCurrentPosition(function (pos) {
+    var lat = pos.coords.latitude;
+    var lng = pos.coords.longitude;
+    console.log('position:', lat, lng);
+
+    var latLng = new google.maps.LatLng(lat, lng);
+
+    var mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    google.maps.event.addListenerOnce($scope.map, 'idle', function() {
+      var marker = new google.maps.Marker({
+          map: $scope.map,
+          animation: google.maps.Animation.DROP,
+          position: latLng
+      });
+
+      var infoWindow = new google.maps.InfoWindow({
+          content: "Here I am!"
+      });
+
+      google.maps.event.addListener(marker, 'click', function () {
+          infoWindow.open($scope.map, marker);
+      });
+    });
+
+
+    var controlUI = document.createElement('div');
+    controlUI.setAttribute('class', 'btn-locate');
+    controlUI.innerHTML = '&#xf2e9;';
+
+    google.maps.event.addDomListener(controlUI, 'click', function () {
+        $scope.map.setCenter(latLng);
+    });
+
+    $scope.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlUI);
+
+  }, function (err) {
+    console.log('err', err);
+  }, options);
+
+})
 
 .controller('HuntCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
