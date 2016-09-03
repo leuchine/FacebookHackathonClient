@@ -170,6 +170,12 @@ angular.module('starter.controllers')
     pointsEl.innerHTML = points;
     $scope.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(pointsEl);
 
+
+    var heatmapBtn = document.createElement('div');
+    heatmapBtn.setAttribute('class', 'btn-heatmap');
+    controlContainer.appendChild(heatmapBtn);
+    $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(heatmapBtn);
+
   }, function (err) {
     console.log('err', err);
   }, options);

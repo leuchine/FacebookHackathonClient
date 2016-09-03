@@ -139,6 +139,18 @@ h4.title {
 	padding-left: 42px;
 }
 
-.ion-icon {
-	font-family: 'Ionicons';
+.btn-heatmap {
+	display: inline-block;
+	width: 48px;
+	height: 48px;
+	background-image: url('../img/ic_heatmap.png');
+	background-repeat: no-repeat;
+	background-size: 36px 36px;
+	background-position: center;
+	cursor: pointer;
+	top: 75px !important;
+}
+
+.gm-bundled-control {
+	top: 0 !important;
 }
