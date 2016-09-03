@@ -15,9 +15,9 @@ function startWork(id, btn) {
   btn.innerHTML = '<img src="' + src + '">';
 }
 
-angular.module('starter.controllers', [])
+angular.module('starter.controllers')
 
-.controller('PowerUpCtrl', function($scope) {
+.controller('MapCtrl', function($scope) {
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
@@ -69,7 +69,7 @@ angular.module('starter.controllers', [])
         'description': 'Lorem Ipsum',
         'lat': 1.2912674,
         'lng': 103.85644629999999,
-        'working': 1
+        'working': 0
       }];
 
       places.forEach(function (place) {
@@ -103,20 +103,21 @@ angular.module('starter.controllers', [])
     var controlContainer = document.createElement('div');
     controlContainer.setAttribute('class', 'btn-container');
 
-    var locateBtn = document.createElement('div');
-    locateBtn.setAttribute('class', 'btn-control btn-locate');
-    locateBtn.innerHTML = '&#xf2e9;';
-    controlContainer.appendChild(locateBtn);
+
+    var addBtn = document.createElement('div');
+    addBtn.setAttribute('class', 'btn-control btn-add');
+    addBtn.innerHTML = '&#xf218;';
+    controlContainer.appendChild(addBtn);
 
     var arBtn = document.createElement('div');
     arBtn.setAttribute('class', 'btn-control btn-ar');
     arBtn.innerHTML = '&#xf24e;';
     controlContainer.appendChild(arBtn);
 
-    var addBtn = document.createElement('div');
-    addBtn.setAttribute('class', 'btn-control btn-add');
-    addBtn.innerHTML = '&#xf218;';
-    controlContainer.appendChild(addBtn);
+    var locateBtn = document.createElement('div');
+    locateBtn.setAttribute('class', 'btn-control btn-locate');
+    locateBtn.innerHTML = '&#xf2e9;';
+    controlContainer.appendChild(locateBtn);
 
 
     google.maps.event.addDomListener(locateBtn, 'click', function () {
@@ -129,49 +130,4 @@ angular.module('starter.controllers', [])
     console.log('err', err);
   }, options);
 
-})
-
-.controller('HuntCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('ProfileCtrl', function($scope) {
-  $scope.preferences = {
-    'reward': {
-      'books': true,
-      'vouchers': false
-    },
-    'volunteering': {
-      'plant_trees': true,
-      'teaching': false,
-      'tech_support': true,
-      'photography': true
-    }
-  };
-  $scope.all = {
-    'reward': false,
-    'volunteering': false
-  };
-  $scope.checkAll = function (section) {
-    for (var key in $scope.preferences[section]) {
-      if ($scope.preferences[section].hasOwnProperty(key)) {
-        $scope.preferences[section][key] = $scope.all[section];
-      }
-    }
-  }
 });
