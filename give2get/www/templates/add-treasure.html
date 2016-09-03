@@ -1,30 +1,30 @@
 <ion-view view-title="Add Treasure">
-  <ion-content class="padding">	
+  <ion-content class="padding">
 	<div class="list list-inset">
 		<h4 class="title">Treasure Info</h4>
 		<label class="item item-input">
-		<input type="text" name="trea_name" placeholder="Name">
+		<input type="text" name="trea_name" placeholder="Name" ng-model="treasure.name">
 		</label>
 
 		<label class="item item-input">
-		<input type="text" name="trea_desc" placeholder="Description">
+		<input type="text" name="trea_desc" placeholder="Description" ng-model="treasure.desc">
 		</label>
-	
+
 		<h4 class="title">Reward Type</h4>
-		<ion-radio ng-model="choice" ng-value="'B'">Books</ion-radio>
-		<ion-radio ng-model="choice" ng-value="'V'">Vouchers</ion-radio>	
+		<ion-radio ng-model="treasure.choice" ng-value="0">Books</ion-radio>
+		<ion-radio ng-model="treasure.choice" ng-value="1">Vouchers</ion-radio>
 
 		<h4 class="title">Desired Points</h4>
 		<label class="item item-input">
-		<input type="text" name="trea_pts" placeholder="Points, e.g. 100, 200, etc.">
+		<input type="text" name="trea_pts" placeholder="Points, e.g. 100, 200, etc." ng-model="treasure.pts">
 		</label>
-		
+
 		<div class="padding profile-button">
-			<button type="submit" class="button button-block button-positive">
+			<button type="submit" class="button button-block button-positive" ng-click="submitForm()">
 			<span ng-show="!loading">Add</span>
 			<i ng-show="loading" class="ion-loading-b"></i>
 			</button>
-		</div>		
+		</div>
     </div>
   </ion-content>
 </ion-view>

@@ -17,13 +17,16 @@ function startWork(id, btn) {
 
 angular.module('starter.controllers')
 
-.controller('MapCtrl', function($scope, $state, Tasks) {
+.controller('MapCtrl', function($scope, $state, Tasks, Location) {
 
   var options = {timeout: 10000, enableHighAccuracy: true};
 
   navigator.geolocation.getCurrentPosition(function (pos) {
+
     var lat = pos.coords.latitude;
     var lng = pos.coords.longitude;
+    Location.set(lat, lng);
+
     console.log('position:', lat, lng);
 
     var latLng = new google.maps.LatLng(lat, lng);
@@ -63,22 +66,7 @@ angular.module('starter.controllers')
       });
 
       Tasks.get(function (places) {
-          // fetch places
-          /*
-          var places = [{
-            'id': 1,
-            'title': 'Test Place',
-            'description': 'Lorem Ipsum',
-            'lat': 1.2912674,
-            'lng': 103.85644629999999,
-            'working': 0
-          }];
-          */
-
-          console.log(places);
-
           places.forEach(function (place) {
-            console.log(place);
             var latLng = new google.maps.LatLng(place.latitude, place.longitude);
 
             var icon = {
