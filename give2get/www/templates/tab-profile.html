@@ -1,9 +1,39 @@
-<ion-view view-title="Profile">
-  <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
-  </ion-content>
-</ion-view>
+<form ua-signup>
+
+  <ion-view title="My Profile">
+    <ion-content>
+      <div class="list list-inset">		
+	  
+		<center>
+				  <div class="item-ddd">
+					<img class="circle-image" ng-src="../img/adam.jpg" width="100" height="100">
+				  </div>
+		</center>
+
+	    <center>
+			<h3> Adam </h3>
+			<h4> thegreatvolunteer@gmail.com </h4>
+		</center>
+		<h4>Reward Prefererences </h4>
+		<ion-checkbox ng-checked="all">Books</ion-checkbox>
+		<ion-checkbox ng-checked="all">Vouchers</ion-checkbox>
+		<ion-checkbox ng-model="all">All</ion-checkbox>
+		
+		<h4>Volunteering Prefererences </h4>
+		<ion-checkbox ng-checked="volunteer">Plant Trees</ion-checkbox>
+		<ion-checkbox ng-checked="volunteer">Teaching</ion-checkbox>
+		<ion-checkbox ng-checked="volunteer">Tech Support</ion-checkbox>
+		<ion-checkbox ng-checked="volunteer" >Photography</ion-checkbox>
+		<ion-checkbox ng-model="volunteer">All</ion-checkbox>
+		
+      </div>
+	  
+      <div class="padding">
+        <button type="submit" class="button button-block button-positive">
+          <span ng-show="!loading">Update</span>
+          <i ng-show="loading" class="ion-loading-b"></i>
+        </button>
+      </div>
+    </ion-content>
+  </ion-view>
+</form>

@@ -19,3 +19,11 @@
 .tab-item-profile.tab-item-active .icon {
 	color: #387ef5 !important;
 }
+
+.item-profile {
+  height: 100px;
+}
+
+img.circle-image {
+  border-radius: 100px;
+}
