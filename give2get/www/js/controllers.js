@@ -100,15 +100,30 @@ angular.module('starter.controllers', [])
     });
 
 
-    var controlUI = document.createElement('div');
-    controlUI.setAttribute('class', 'btn-locate');
-    controlUI.innerHTML = '&#xf2e9;';
+    var controlContainer = document.createElement('div');
+    controlContainer.setAttribute('class', 'btn-container');
 
-    google.maps.event.addDomListener(controlUI, 'click', function () {
+    var locateBtn = document.createElement('div');
+    locateBtn.setAttribute('class', 'btn-control btn-locate');
+    locateBtn.innerHTML = '&#xf2e9;';
+    controlContainer.appendChild(locateBtn);
+
+    var arBtn = document.createElement('div');
+    arBtn.setAttribute('class', 'btn-control btn-ar');
+    arBtn.innerHTML = '&#xf24e;';
+    controlContainer.appendChild(arBtn);
+
+    var addBtn = document.createElement('div');
+    addBtn.setAttribute('class', 'btn-control btn-add');
+    addBtn.innerHTML = '&#xf218;';
+    controlContainer.appendChild(addBtn);
+
+
+    google.maps.event.addDomListener(locateBtn, 'click', function () {
         $scope.map.setCenter(latLng);
     });
 
-    $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlUI);
+    $scope.map.controls[google.maps.ControlPosition.BOTTOM_RIGHT].push(controlContainer);
 
   }, function (err) {
     console.log('err', err);
