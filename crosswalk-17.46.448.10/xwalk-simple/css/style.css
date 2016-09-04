@@ -1,0 +1,160 @@
+/* Tabs */
+
+.tab-item.activated,
+.tab-item.tab-item-active {
+	color: #333 !important;
+}
+
+.tab-item-map.activated .icon,
+.tab-item-map.tab-item-active .icon {
+	color: #689F38 !important;
+}
+
+.tab-item-hunt.activated .icon,
+.tab-item-hunt.tab-item-active .icon {
+	color: #ffd700 !important;
+}
+
+.tab-item-profile.activated .icon,
+.tab-item-profile.tab-item-active .icon {
+	color: #387ef5 !important;
+}
+
+img.circle-image {
+  border-radius: 100px;
+}
+
+/* Map */
+
+.scroll {
+    height: 100%;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-container {
+	right: 0 !important;
+	bottom: 20px !important;
+}
+
+.btn-control {
+	background: white;
+	border-radius: 50px;
+	box-shadow: 0 2px 6px rgba(0,0,0,.3);
+	cursor: pointer;
+	margin: 10px;
+	text-align: center;
+	width: 48px;
+	height: 48px;
+	line-height: 48px;
+	font-size: 20px;
+	font-family: 'Ionicons';
+}
+
+.btn-add {
+	background: #7CB342;
+	color: white;
+}
+
+.btn-add:active {
+	background: #689F38;
+}
+
+.btn-ar {
+	background: #FFB300;
+	color: white;
+}
+
+.btn-ar:active {
+	background: #FFA000;
+}
+
+.btn-locate {
+	background: #1E88E5;
+	color: white;
+}
+
+.btn-locate:active {
+	background: #1976D2;
+}
+
+.btn-work {
+	margin-top: 10px;
+	border: 1px solid #999;
+	border-radius: 100px;
+	background: none;
+	height: auto;
+	padding: 0;
+	line-height: 0px;
+}
+
+.btn-work img {
+	width: 24px;
+	height: 24px;
+}
+
+h4.title {
+	margin-top: 25px;
+}
+
+.place-title {
+	font-size: 15px;
+}
+
+.place-date {
+	font-weight: bold;
+}
+
+.place-desc {
+	margin-bottom: 0;
+}
+
+.place-info {
+	font-style: italic;
+	margin-bottom: 5px;
+	display: inline-block;
+}
+
+.iwframe {
+	font-weight: normal;
+}
+
+.points {
+	position: absolute;
+	bottom: 35px !important;
+	left: 10px !important;
+	font-size: 20px;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 10px;
+	color: #FF6F00;
+	font-weight: bold;
+	border-radius: 10px;
+	background-image: url('../img/ic_coin.png');
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	padding-left: 42px;
+}
+
+.btn-heatmap {
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	background-image: url('../img/ic_heatmap.png');
+	background-repeat: no-repeat;
+	background-size: 36px 36px;
+	background-position: center;
+	cursor: pointer;
+	top: 75px !important;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 4px;
+	margin-left: 10px;
+	box-shadow: 0 2px 2px rgba(0,0,0,.1);
+}
+
+.gm-bundled-control {
+	top: 0 !important;
+}

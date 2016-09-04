@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AWE GEO AR demo</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+#container {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	overflow: hidden;
+}
+
+.pic {
+  float: left;
+  margin-right: 0.2cm;
+}
+
+.error {
+    width:200px;
+    height:20px;
+    height:auto;
+    position:absolute;
+    left:50%;
+    margin-left:-100px;
+    bottom:40px;
+    background-color: #383838;
+    color: #F0F0F0;
+    font-family: Calibri;
+    font-size: 20px;
+    padding:10px;
+    text-align:center;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+
+/*#exit{
+  position:absolute;
+  left:0.2cm;
+  top:0.2cm;
+}*/
+
+#points {
+  position: absolute;
+  bottom: 25px !important;
+  left: 8px !important;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  color: #FF6F00;
+  font-weight: bold;
+  border-radius: 10px;
+  background-image: url('ic_coin.png');
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  padding-left: 42px;
+}
+
+</style>
+<script>
+var treasureid;
+var proj;
+//set invisible
+function setVisible() {
+  awe.projections.update({ 
+    data: {
+        visible: false
+    },
+    where: {
+          id: treasureid
+        }
+    });
+  $('.error').fadeIn(400).delay(2000).fadeOut(400);
+  if(treasureid==='n'){
+    totalValue-=600;
+  }else{
+    totalValue-=300;
+  }
+  document.getElementById('points').innerHTML=totalValue;
+  document.getElementById('exit').style.display = "block";
+}
+//display
+function display(){
+  document.getElementById('exit').style.display = "block";
+}
+
+function jump(){
+  window.location="../../../index.html?points="+totalValue;
+}
+
+var totalValue=window.location.href.split("points=")[1];
+</script>
+</head>
+<body>
+<div id='points'></div>
+
+<script>
+  document.getElementById('points').innerHTML=totalValue;
+</script>
+<div class='error' style='display:none'>Treasure collected.</div>
+<div>
+
+</div>
+<!-- Modal -->
+  <div class="modal fade" id="n" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h4 class="modal-title">Treasure</h4>
+        </div>
+        <div class="modal-body">
+          <img class='pic' src='harrypotter.jpg' height='150' width='120'>
+          <p>Book Name: Harry Potter</p>
+          <p>Description: Harry Potter is a series of fantasy novels written by British author J. K. Rowling</p>
+          <p>Points: 600</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setVisible()">Get it</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="display()">Close</button>
+        </div>
+      </div>    
+    </div>
+  </div>
+
+  <div class="modal fade" id="ne" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h4 class="modal-title">Treasure</h4>
+        </div>
+        <div class="modal-body">
+          <img class='pic' src='mcdonald.jpg' height='150' width='120'>
+          <p>Voucher: McDonald</p>
+          <p>Description: get a discount of 25% on your order. Anywhere in Singapore valid. Come and get it!</p>
+          <p>Points: 300</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setVisible()">Get it</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="display()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="modal fade" id="e" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h4 class="modal-title">Treasure</h4>
+        </div>
+        <div class="modal-body">
+          <img class='pic' src='mcdonald.jpg' height='150' width='120'>
+          <p>Voucher: Subway</p>
+          <p>Description: $3.25 for any 6-inch Sub (worth up to $6.50) at 17 Subway Outlets</p>
+          <p>Points: 300</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="setVisible()">Get it</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="display()">Close</button>
+        </div>
+      </div>
+      </div>
+  </div>
+
+<div id="container">
+<img id='exit' style="position: relative;z-index:9999;" src="exit.svg" width='45' height='45' onclick='jump();'>
+  
+</div>
+<script type="text/javascript" src="../../js/awe-loader-min.js"></script>
+<script type="text/javascript">
+  window.addEventListener('load', function() {
+    // 页面加载完成后初始化awe
+    window.awe.init({
+      // 自动发现设备
+      device_type: awe.AUTO_DETECT_DEVICE_TYPE,
+      // 填充一些默认设置
+      settings: {
+      	container_id: 'container',
+        fps: 30,
+        default_camera_position: { x:0, y:0, z:0 },
+        default_lights:[
+          {
+            id: 'point_light',
+            type: 'point',
+            color: 0xFFFFFF
+          }
+        ]
+      },
+      ready: function() {
+        // 基于js是否加载成功，成功后设置scene
+        awe.util.require([
+          {
+            capabilities: ['gum','gyro','webgl'],
+            files: [ 
+              [ '../../js/awe-standard-dependencies.js', '../../js/awe-standard.js' ], // 核心依赖
+              '../../js/awe-standard-window_resized.js', // window resize handling plugin
+              '../../js/awe-standard-object_clicked.js', // object click/tap handling plugin
+              'awe.geo_ar.js' // geo ar 插件
+            ],
+            success: function() { 
+              // 限制demo支持的设备
+              // NOTE: only Chrome and Firefox has implemented the DeviceOrientation API in a workable way
+              //       so for now we are excluding all others to make sure your first experience is a happy one
+              var device_type = awe.device_type();
+              var browser_unsupported = false;
+              if (device_type != 'android') {
+                browser_unsupported = true;
+              } else if (!navigator.userAgent.match(/chrome|firefox/i)) {
+                browser_unsupported = true;
+              }
+              if (browser_unsupported) {
+                document.body.innerHTML = '<p>This demo currently requires a standards compliant Android browser (e.g. Chrome M33).</p>';
+                return;
+              }
+              
+              // setup and paint the scene
+			        window.awe.setup_scene();
+			
+              // setup some code to handle when an object is clicked/tapped
+              window.addEventListener('object_clicked', function(e) {
+                document.getElementById('exit').style.display = "none";
+				  //用projection的id直接访问projectiongs
+                // var p = awe.projections.view(e.detail.projection_id);
+                // awe.projections.update({ // 当点击物体x轴y轴周围180度并且在10s内，旋转物体
+                //   data:{
+                //     animation: {
+                //       duration: 5
+                //     },
+                //     scale:{ x: p                                                                                                                                                                                                         .scale.x*3, y: p.scale.y*3,z: p.scale.z*3 }
+                //   },
+                //   where:{ id:e.detail.projection_id }
+                // });
+              // var x;
+              // if (confirm("Press a button!") == true) {
+              //   x = "You pressed OK!";
+              //   } else {
+              //       x = "You pressed Cancel!";
+              //   }
+              treasureid=e.detail.projection_id;
+              proj=awe.projections;
+              switch (e.detail.projection_id) {
+                case 'n':
+                $("#n").modal();
+                break;
+                case 'ne':
+                $("#ne").modal();               
+                break;
+                case 'e': 
+                $("#e").modal();                
+                break;
+                default:
+                break;
+              }
+              
+              }, false);
+
+			        // add some points of interest (poi) for each of the compass points
+			        awe.pois.add({ id:'north', position: { x:0, y:0, z:200 } });
+			        awe.pois.add({ id:'north_east', position: { x:200, y:0, z:200 } });
+			        awe.pois.add({ id:'east', position: { x:200, y:0, z:0 } });
+			        awe.pois.add({ id:'south_east', position: { x:200, y:0, z:-200 } });
+			        awe.pois.add({ id:'south', position: { x:0, y:0, z:-200 } });
+			        awe.pois.add({ id:'south_west', position: { x:-200, y:0, z:-200 } });
+			        awe.pois.add({ id:'west', position: { x:-200, y:0, z:0 } });
+			        awe.pois.add({ id:'north_west', position: { x:-200, y:0, z:200 } });
+			
+			        // add projections to each of the pois
+				// awe.projections.add({
+				// 	id: 'n',
+				// 	geometry: {shape: 'text', text:'LQ is SB',parameters:'LQ is SB'},
+				// 	rotation: {x: 30, y: 30, z: 0},
+				// 	material: {
+				// 		type: 'phong',
+				// 		color: 0xFF0000
+				// 	}
+				// }, {poi_id: 'north'});
+
+				// awe.projections.add({
+				// 	id: 'ne',
+				// 	geometry: {shape: 'text', parameters:'LQ is SB'},
+				// 	material: {
+				// 		type: 'phong',
+				// 		color: 0xCCCCCC
+				// 	}
+				// }, {poi_id: 'north_east'});
+        
+        awe.projections.add({
+          id: 'n',
+          geometry:{ shape:'sphere', radius:12 },
+              material: {
+                  type: 'phong',
+                  color: 0xFFFF00
+              },
+              texture: {
+                  path: 'gold.jpg'
+              },
+          },{ poi_id: 'north' });
+
+				awe.projections.add({
+					id: 'ne',
+					geometry:{ shape:'sphere', radius:12 },
+              material: {
+                  type: 'phong',
+                  color: 0x00FF00
+              },
+              texture: {
+                  path: 'gold.jpg'
+              },
+          },{ poi_id: 'north_east' });
+
+        awe.projections.add({
+          id: 'e',
+          geometry:{ shape:'sphere', radius:12 },
+              material: {
+                  type: 'phong',
+                  color: 0xFF0000
+              },
+              texture: {
+                  path: 'gold.jpg'
+              },
+          },{ poi_id: 'east' });
+
+			        // awe.projections.add({ 
+			        //   id:'se', 
+			        //   geometry:{ shape:'text', radius:10 }, 
+			        //   material:{ 
+			        //     type: 'phong',
+			        //     color:0xCCCCCC
+			        //   }
+			        // }, { poi_id: 'south_east' });
+
+			        // awe.projections.add({ 
+			        //   id:'s', 
+			        //   geometry:{ shape:'text', x:50, y:50, z:50 }, 
+           //      rotation:{ x:30, y:30, z:0 },
+			        //   material:{ 
+			        //     type: 'phong',
+			        //     color:0xFFFFFF
+			        //   }
+			        // }, { poi_id: 'south' });
+
+			        // awe.projections.add({ 
+			        //   id:'sw', 
+			        //   geometry:{ shape:'text', radius:10 }, 
+			        //   material:{ 
+			        //     type: 'phong',
+			        //     color:0xCCCCCC
+			        //   }
+			        // }, { poi_id: 'south_west' });
+
+			        // awe.projections.add({ 
+			        //   id:'w', 
+			        //   geometry:{ shape:'text', x:50, y:50, z:50 }, 
+           //      rotation:{ x:30, y:30, z:0 },
+			        //   material:{ 
+			        //     type: 'phong',
+			        //     color:0x0000FF
+			        //   }
+			        // }, { poi_id: 'west' });
+
+			        // awe.projections.add({ 
+			        //   id:'nw', 
+			        //   geometry:{ shape:'sphere', radius:10 }, 
+			        //   material:{
+			        //     type: 'phong',
+			        //     color:0xCCCCCC
+			        //   }
+			        // }, { poi_id: 'north_west' });
+			
+            },
+          },
+          { // else create a fallback
+            capabilities: [],
+            files: [],
+            success: function() { 
+              document.body.innerHTML = '<p>This demo currently requires a standards compliant mobile browser (e.g. Firefox on Android). NOTE: iOS does not currently support WebGL or WebRTC and has not implemented the DeviceOrientation API correctly. Please see <a href="http://lists.w3.org/Archives/Public/public-geolocation/2014Jan/0000.html">this post to the W3C GeoLocation Working Group</a> for more detailed information.</p>';
+              return;
+            }
+          }
+        ]);
+      }
+    });
+  });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "Give 2 Gain",
+  "start_url": "index.html",
+  "xwalk_package_id": "com.hacking.g2g",
+  "xwalk_permissions": [
+    "Contacts",
+    "Geolocation",
+    "Messaging",
+    "Vibration"
+  ]
+}
